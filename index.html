@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Hipnoterapeutas del grupo: la hora de cada uno</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F1F2F9;
+    --card: #FFFFFF;
+    --ink: #1B2040;
+    --muted: #5A6088;
+    --line: #D9DCEE;
+    --accent: #1E6F6A;
+    --accent-soft: #DDF0EE;
+    --night: #232A5E;
+    --dawn: #F2C36B;
+    --day: #CDE8F4;
+    --dusk: #B48AC9;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #171A38;
+      --card: #20244A;
+      --ink: #ECEEFA;
+      --muted: #A3A9CF;
+      --line: #343A6E;
+      --accent: #5FC4BB;
+      --accent-soft: #1E4A52;
+      --night: #0F1230;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 16px/1.5 "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 36px 20px 72px; }
+
+  h1 {
+    font-family: "Fraunces", Georgia, "Times New Roman", serif;
+    font-weight: 600;
+    font-size: clamp(28px, 5vw, 42px);
+    line-height: 1.1;
+    margin: 0 0 8px;
+  }
+  .sub { margin: 0; color: var(--muted); }
+  #ahora { font-variant-numeric: tabular-nums; }
+
+  .controles { display: flex; flex-wrap: wrap; align-items: end; gap: 16px 28px; margin: 28px 0 4px; }
+  label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--muted); }
+  input[type="search"], input[type="datetime-local"], select {
+    font: inherit; color: var(--ink);
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 9px 12px;
+    min-width: 220px;
+  }
+  .check { flex-direction: row; align-items: center; gap: 8px; font-size: 15px; color: var(--ink); padding-bottom: 9px; }
+  .check input { width: 18px; height: 18px; accent-color: var(--accent); }
+
+  details { margin-top: 14px; }
+  summary { cursor: pointer; font-weight: 600; color: var(--accent); width: fit-content; }
+  .plan-body { display: flex; flex-wrap: wrap; align-items: end; gap: 12px 16px; margin-top: 12px; }
+  button {
+    font: inherit; font-weight: 600; cursor: pointer;
+    border-radius: 10px; padding: 9px 16px;
+    border: 1px solid var(--accent); background: var(--accent); color: #fff;
+  }
+  @media (prefers-color-scheme: dark) { button { color: #0B1D1C; } }
+  button.sec { background: transparent; color: var(--accent); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  #aviso, #modo { margin: 16px 0 0; }
+  #aviso { color: #9A3B2E; font-size: 14px; }
+  #modo { padding: 10px 14px; border-radius: 10px; background: var(--accent-soft); color: var(--ink); }
+
+  #lista { margin-top: 20px; }
+  .grupo {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 8px 36px;
+    padding: 26px 0;
+    border-top: 1px solid var(--line);
+  }
+  .grupo:last-child { border-bottom: 1px solid var(--line); }
+
+  .hora {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 600;
+    font-size: 54px;
+    line-height: 1;
+    font-variant-numeric: lining-nums tabular-nums;
+  }
+  .fecha { margin-top: 6px; font-weight: 500; }
+  .dif { color: var(--muted); font-size: 14px; }
+
+  .banda {
+    position: relative; height: 14px; margin-top: 14px; border-radius: 7px;
+    background: linear-gradient(90deg,
+      var(--night) 0%, var(--night) 21%,
+      var(--dawn) 27%, var(--day) 34%, var(--day) 70%,
+      var(--dusk) 79%, var(--night) 88%, var(--night) 100%);
+  }
+  .banda i {
+    position: absolute; top: -4px; bottom: -4px; width: 4px;
+    background: var(--ink); border: 2px solid var(--bg); border-radius: 3px;
+    transform: translateX(-50%);
+  }
+  .escala { display: flex; justify-content: space-between; margin-top: 4px; font-size: 11px; color: var(--muted); }
+
+  .gente h2 { font-size: 18px; font-weight: 600; margin: 0 0 12px; }
+  .gente h2 .cuenta { font-weight: 400; color: var(--muted); font-size: 14px; margin-left: 8px; }
+  .chips { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    display: inline-flex; align-items: baseline; gap: 6px;
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 999px; padding: 6px 13px; font-size: 15px;
+  }
+  .chip .l { color: var(--muted); font-size: 13px; }
+  .chip .h { color: var(--muted); font-size: 12px; }
+  .chip.on { border-color: var(--accent); background: var(--accent-soft); }
+  .chip.on .h { color: var(--accent); font-weight: 600; }
+
+  .vacio { padding: 32px 0; color: var(--muted); }
+  footer { margin-top: 28px; color: var(--muted); font-size: 13px; max-width: 70ch; }
+
+  @media (max-width: 680px) {
+    .grupo { grid-template-columns: 1fr; gap: 16px; }
+    .hora { font-size: 46px; }
+    input[type="search"], input[type="datetime-local"], select { min-width: 0; width: 100%; }
+    label { flex: 1 1 100%; }
+    .check { flex: 1 1 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Hipnoterapeutas del grupo</h1>
+  <p class="sub" id="ahora"></p>
+
+  <div class="controles">
+    <label>Buscar por nombre o país
+      <input type="search" id="q" placeholder="Por ejemplo: Valencia" autocomplete="off">
+    </label>
+    <label class="check">
+      <input type="checkbox" id="dia">
+      Mostrar solo a quienes están entre las 8:00 y las 23:00
+    </label>
+  </div>
+
+  <details id="plan">
+    <summary>Proponer una hora para practicar</summary>
+    <div class="plan-body">
+      <label>Día y hora
+        <input type="datetime-local" id="pf">
+      </label>
+      <label>Hora de
+        <select id="pz"></select>
+      </label>
+      <button type="button" id="ver">Ver esa hora</button>
+      <button type="button" id="volver" class="sec">Volver a la hora actual</button>
+    </div>
+  </details>
+
+  <p id="modo" hidden></p>
+  <p id="aviso" hidden></p>
+
+  <main id="lista" aria-live="polite"></main>
+
+  <footer>
+    Las horas se calculan en tu navegador con la base de zonas horarias del sistema,
+    así que los cambios de horario de verano e invierno de cada país se ajustan solos.
+  </footer>
+</div>
+
+<script>
+/* =====================================================================
+   1) LUGARES: cada lugar y su zona horaria.
+      Formato:  "Nombre del lugar": ["País", "Zona horaria"],
+      Solo hay que tocar esto si aparece un lugar nuevo.
+   ===================================================================== */
+const LUGARES = {
+  "EEUU (oeste)": ["EEUU", "America/Los_Angeles"],
+  "EEUU (este)":  ["EEUU", "America/New_York"],
+  "México":       ["México", "America/Mexico_City"],
+  "Nicaragua":    ["Nicaragua", "America/Managua"],
+  "Perú":         ["Perú", "America/Lima"],
+  "Ecuador":      ["Ecuador", "America/Guayaquil"],
+  "Colombia":     ["Colombia", "America/Bogota"],
+  "Paraguay":     ["Paraguay", "America/Asuncion"],
+  "Puerto Rico":  ["Puerto Rico", "America/Puerto_Rico"],
+  "Uruguay":      ["Uruguay", "America/Montevideo"],
+  "Argentina":    ["Argentina", "America/Argentina/Buenos_Aires"],
+  "Chile":        ["Chile", "America/Santiago"],
+  "Inglaterra":   ["Inglaterra", "Europe/London"],
+  "Canarias":     ["España", "Atlantic/Canary"],
+  "Tenerife":     ["España", "Atlantic/Canary"],
+  "Granada":      ["España", "Europe/Madrid"],
+  "Valencia":     ["España", "Europe/Madrid"],
+  "Mallorca":     ["España", "Europe/Madrid"],
+  "Alicante":     ["España", "Europe/Madrid"],
+  "Murcia":       ["España", "Europe/Madrid"],
+  "Málaga":       ["España", "Europe/Madrid"],
+  "Cádiz":        ["España", "Europe/Madrid"],
+  "Tarragona":    ["España", "Europe/Madrid"],
+  "Ibiza":        ["España", "Europe/Madrid"],
+  "Barcelona":    ["España", "Europe/Madrid"],
+  "Madrid":       ["España", "Europe/Madrid"],
+  "Asturias":     ["España", "Europe/Madrid"],
+  "Lleida":       ["España", "Europe/Madrid"],
+  "Austria":      ["Austria", "Europe/Vienna"],
+  "Israel":       ["Israel", "Asia/Jerusalem"]
+};
+
+/* Nombres para el selector de "Proponer una hora". */
+const ZONAS = {
+  "America/Los_Angeles": "EEUU, costa oeste",
+  "America/Mexico_City": "México",
+  "America/Managua": "Nicaragua",
+  "America/Lima": "Perú",
+  "America/Guayaquil": "Ecuador",
+  "America/Bogota": "Colombia",
+  "America/Asuncion": "Paraguay",
+  "America/Puerto_Rico": "Puerto Rico",
+  "America/New_York": "EEUU, costa este",
+  "America/Montevideo": "Uruguay",
+  "America/Argentina/Buenos_Aires": "Argentina",
+  "America/Santiago": "Chile",
+  "Europe/London": "Inglaterra",
+  "Atlantic/Canary": "Canarias",
+  "Europe/Madrid": "España (península y Baleares)",
+  "Europe/Vienna": "Austria",
+  "Asia/Jerusalem": "Israel"
+};
+
+/* =====================================================================
+   2) MIEMBROS: una línea por persona.
+      Formato:  ["Nombre", "Lugar"],
+      Con horario (opcional, en la hora local de esa persona):
+                ["Nombre", "Lugar", "18:00-22:00"],
+      El "Lugar" tiene que existir arriba en LUGARES.
+   ===================================================================== */
+const MIEMBROS = [
+  ["Jose Guevara", "EEUU (oeste)"],
+  ["Jesus Torres", "EEUU (oeste)"],
+  ["Juan Carlos", "EEUU (oeste)"],
+
+  ["Alfonso", "México"],
+  ["Jorge", "México"],
+  ["Josue Vazquez", "México"],
+  ["Zulma Rueda", "México"],
+  ["Luna", "México"],
+  ["Selene", "México"],
+  ["Veronica", "México"],
+  ["Sergio", "México"],
+  ["Alberto Espinosa", "México"],
+  ["Judiht", "México"],
+  ["Luis Antonio", "Nicaragua"],
+
+  ["Lila", "Perú"],
+  ["Valeri", "Perú"],
+  ["Juan Carlos", "Perú"],
+  ["Fernando", "Ecuador"],
+  ["Jimmy", "Ecuador"],
+  ["Veronica", "Ecuador"],
+  ["Ricardo Emilio", "Ecuador"],
+  ["Trotsky", "Ecuador"],
+  ["Osvaldo", "Colombia"],
+
+  ["Sandra", "Paraguay"],
+  ["Edwin", "Puerto Rico"],
+  ["Angel Martinez", "EEUU (este)"],
+  ["Hernan Gonzalez", "EEUU (este)"],
+
+  ["Hector", "Uruguay"],
+  ["Claudia Borges", "Uruguay"],
+  ["Carlos", "Argentina"],
+  ["Matías", "Argentina"],
+
+  ["Jonah", "Chile"],
+  ["Juan Francisco", "Chile"],
+
+  ["Eliz", "Inglaterra"],
+  ["Iván", "Canarias"],
+  ["Natalia", "Tenerife"],
+
+  ["Rut", "Granada"],
+  ["Victor", "Granada"],
+  ["Pepe", "Valencia"],
+  ["Sara", "Valencia"],
+  ["Ana", "Valencia"],
+  ["Francis", "Mallorca"],
+  ["Monik", "Alicante"],
+  ["Adriana", "Alicante"],
+  ["Agustina", "Murcia"],
+  ["Inma", "Málaga"],
+  ["Paqui", "Málaga"],
+  ["Eva", "Cádiz"],
+  ["Maria Teresa", "Tarragona"],
+  ["Jose Luis", "Ibiza"],
+  ["Albert", "Barcelona"],
+  ["Isa", "Barcelona"],
+  ["Raquel", "Barcelona"],
+  ["Roland", "Madrid"],
+  ["Dori", "Madrid"],
+  ["Asun", "Asturias"],
+  ["Jose Morales", "Lleida"],
+  ["Raul", "Austria"],
+  ["Luis Fernando", "Austria"],
+
+  ["Shulli", "Israel"],
+  ["Miriam", "Israel"]
+];
+
+/* =====================================================================
+   3) A partir de aquí no hace falta tocar nada.
+   ===================================================================== */
+const $ = s => document.querySelector(s);
+const pad = n => String(n).padStart(2, "0");
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const norm = s => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+const VIEW_ZONE = Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
+let planned = null; // null = hora actual; Date = hora propuesta
+
+const desconocidos = new Set();
+const PERSONAS = MIEMBROS.map(([nombre, lugar, horario]) => {
+  const l = LUGARES[lugar];
+  if (!l) { desconocidos.add(lugar); return null; }
+  return { nombre, lugar, pais: l[0], zona: l[1], horario: horario || "" };
+}).filter(Boolean);
+
+const fmtCache = {};
+function partsIn(zone, date) {
+  const f = fmtCache[zone] || (fmtCache[zone] = new Intl.DateTimeFormat("en-CA", {
+    timeZone: zone, hourCycle: "h23",
+    year: "numeric", month: "2-digit", day: "2-digit",
+    hour: "2-digit", minute: "2-digit", second: "2-digit"
+  }));
+  const o = {};
+  for (const p of f.formatToParts(date)) if (p.type !== "literal") o[p.type] = +p.value;
+  o.hour = o.hour % 24;
+  return o;
+}
+function offsetMin(zone, date) {
+  const p = partsIn(zone, date);
+  const asUTC = Date.UTC(p.year, p.month - 1, p.day, p.hour, p.minute, p.second);
+  return Math.round((asUTC - Math.floor(date.getTime() / 1000) * 1000) / 60000);
+}
+function zonedToUtc(y, m, d, h, mi, zone) {
+  const guess = Date.UTC(y, m - 1, d, h, mi);
+  const off = offsetMin(zone, new Date(guess));
+  let t = guess - off * 60000;
+  const off2 = offsetMin(zone, new Date(t));
+  if (off2 !== off) t = guess - off2 * 60000;
+  return new Date(t);
+}
+const dateFmts = {};
+function fechaCorta(zone, date) {
+  const f = dateFmts[zone] || (dateFmts[zone] = new Intl.DateTimeFormat("es", { timeZone: zone, weekday: "short", day: "numeric", month: "short" }));
+  return f.format(date).replace(/\./g, "");
+}
+function diffLabel(d) {
+  if (d === 0) return "Misma hora que tú";
+  const a = Math.abs(d), h = Math.floor(a / 60), m = a % 60;
+  const t = h + (m ? ":" + pad(m) : "") + " h";
+  return `${t} ${d > 0 ? "más tarde" : "más temprano"} que tú`;
+}
+function ventana(txt, mins) {
+  const m = /^(\d{1,2}):(\d{2})\s*[-–]\s*(\d{1,2}):(\d{2})$/.exec(txt || "");
+  if (!m) return null;
+  const a = +m[1] * 60 + +m[2], b = +m[3] * 60 + +m[4];
+  const on = a <= b ? (mins >= a && mins < b) : (mins >= a || mins < b);
+  return { on, txt: `${pad(+m[1])}:${m[2]} a ${pad(+m[3])}:${m[4]}` };
+}
+
+function render() {
+  const ref = planned || new Date();
+  const q = norm($("#q").value.trim());
+  const soloDia = $("#dia").checked;
+  const vOff = offsetMin(VIEW_ZONE, ref);
+  const vp = partsIn(VIEW_ZONE, ref);
+  const vDay = Date.UTC(vp.year, vp.month - 1, vp.day);
+
+  // Cabecera
+  if (planned) {
+    const zSel = $("#pz");
+    const nombreZona = zSel.options[zSel.selectedIndex].text;
+    $("#ahora").textContent = `Tu hora en ese momento: ${pad(vp.hour)}:${pad(vp.minute)} (${VIEW_ZONE})`;
+    $("#modo").hidden = false;
+    $("#modo").textContent = `Estás viendo la hora propuesta: ${$("#pf").value.replace("T", " a las ")} en ${nombreZona}.`;
+  } else {
+    $("#ahora").textContent = `Tu hora ahora: ${pad(vp.hour)}:${pad(vp.minute)} (${VIEW_ZONE})`;
+    $("#modo").hidden = true;
+  }
+
+  // Agrupar por diferencia horaria vigente en este instante
+  const grupos = new Map();
+  for (const p of PERSONAS) {
+    const off = offsetMin(p.zona, ref);
+    if (!grupos.has(off)) grupos.set(off, { off, zona: p.zona, todos: [] });
+    grupos.get(off).todos.push(p);
+  }
+
+  const html = [];
+  for (const g of [...grupos.values()].sort((a, b) => a.off - b.off)) {
+    const p = partsIn(g.zona, ref);
+    const mins = p.hour * 60 + p.minute;
+    if (soloDia && (p.hour < 8 || p.hour >= 23)) continue;
+
+    const visibles = g.todos
+      .filter(x => !q || norm(x.nombre + " " + x.lugar + " " + x.pais).includes(q))
+      .sort((a, b) => a.nombre.localeCompare(b.nombre, "es"));
+    if (!visibles.length) continue;
+
+    const dayDiff = Math.round((Date.UTC(p.year, p.month - 1, p.day) - vDay) / 86400000);
+    const nota = dayDiff > 0 ? " (día siguiente)" : dayDiff < 0 ? " (día anterior)" : "";
+    const paises = [...new Set(g.todos.map(x => x.pais))].join(", ");
+    const hhmm = `${pad(p.hour)}:${pad(p.minute)}`;
+
+    const chips = visibles.map(x => {
+      const v = ventana(x.horario, mins);
+      const lugar = x.lugar !== x.pais ? `<span class="l">${esc(x.lugar)}</span>` : "";
+      const h = v ? `<span class="h">${v.txt}${v.on ? ", disponible" : ""}</span>` : "";
+      return `<li class="chip${v && v.on ? " on" : ""}"><span class="n">${esc(x.nombre)}</span>${lugar}${h}</li>`;
+    }).join("");
+
+    html.push(`
+      <section class="grupo">
+        <div class="reloj">
+          <div class="hora">${hhmm}</div>
+          <div class="fecha">${esc(fechaCorta(g.zona, ref))}${nota}</div>
+          <div class="dif">${diffLabel(g.off - vOff)}</div>
+          <div class="banda" role="img" aria-label="Posición dentro del día: ${hhmm}"><i style="left:${(mins / 1440 * 100).toFixed(2)}%"></i></div>
+          <div class="escala" aria-hidden="true"><span>0</span><span>6</span><span>12</span><span>18</span><span>24</span></div>
+        </div>
+        <div class="gente">
+          <h2>${esc(paises)}<span class="cuenta">${visibles.length} ${visibles.length === 1 ? "persona" : "personas"}</span></h2>
+          <ul class="chips">${chips}</ul>
+        </div>
+      </section>`);
+  }
+
+  $("#lista").innerHTML = html.join("") ||
+    `<p class="vacio">No hay nadie que coincida. Prueba con otro nombre o país, o quita el filtro de horario.</p>`;
+
+  if (desconocidos.size) {
+    $("#aviso").hidden = false;
+    $("#aviso").textContent = `Falta definir en LUGARES: ${[...desconocidos].join(", ")}. Esas personas no se muestran.`;
+  }
+}
+
+/* Selector de zona para proponer una hora */
+(function iniciarPlanificador() {
+  const sel = $("#pz");
+  const ahora = new Date();
+  const opts = [`<option value="${esc(VIEW_ZONE)}">Mi zona (${esc(VIEW_ZONE)})</option>`];
+  Object.entries(ZONAS)
+    .sort((a, b) => offsetMin(a[0], ahora) - offsetMin(b[0], ahora))
+    .forEach(([z, n]) => opts.push(`<option value="${esc(z)}">${esc(n)}</option>`));
+  sel.innerHTML = opts.join("");
+
+  const d = new Date(Date.now() + 3600e3);
+  const p = partsIn(VIEW_ZONE, d);
+  $("#pf").value = `${p.year}-${pad(p.month)}-${pad(p.day)}T${pad(p.hour)}:00`;
+
+  $("#ver").addEventListener("click", () => {
+    const m = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/.exec($("#pf").value);
+    if (!m) { $("#pf").focus(); return; }
+    planned = zonedToUtc(+m[1], +m[2], +m[3], +m[4], +m[5], sel.value);
+    render();
+  });
+  $("#volver").addEventListener("click", () => { planned = null; last = ""; render(); });
+})();
+
+$("#q").addEventListener("input", render);
+$("#dia").addEventListener("change", render);
+
+/* Actualización automática: se vuelve a dibujar cuando cambia el minuto */
+let last = "";
+function tick() {
+  if (planned) return;
+  const k = new Date().toISOString().slice(0, 16);
+  if (k !== last) { last = k; render(); }
+}
+setInterval(tick, 5000);
+document.addEventListener("visibilitychange", () => { last = ""; tick(); });
+last = new Date().toISOString().slice(0, 16);
+render();
+</script>
+</body>
+</html>
