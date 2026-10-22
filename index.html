@@ -54,6 +54,20 @@
   .sub { margin: 0; color: var(--muted); }
   #ahora { font-variant-numeric: tabular-nums; }
 
+  .intro {
+    margin: 18px 0 0;
+    padding: 16px 18px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    font-weight: 400;
+    font-size: 15px;
+    color: var(--ink);
+  }
+  .intro p { margin: 0 0 10px; }
+  .intro p:last-child { margin-bottom: 0; }
+  .intro .firma { color: var(--muted); font-size: 13px; }
+
   .controles { display: flex; flex-wrap: wrap; align-items: end; gap: 16px 28px; margin: 28px 0 4px; }
   label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--muted); }
   input[type="search"], input[type="datetime-local"], select {
@@ -146,6 +160,13 @@
 <div class="wrap">
   <h1>Hipnoterapeutas del grupo</h1>
   <p class="sub" id="ahora"></p>
+
+  <div class="intro">
+    <p>Esto va así. Puedes ofrecer practicar a través del WhatsApp y esperar que te respondan por privado, o contactar con quien te parezca bien de la lista de participantes por privado (en el grupo busca su nombre), que es una forma más proactiva. Ponemos a los participantes por usos horarios. Verifícalo, dado que puede haber variaciones estacionales.</p>
+    <p>Mira también dentro de la plataforma cuándo son las próximas prácticas de Luis, esas son las oficiales. Esto es un plus, especialmente si no tienes pacientes. Es zona segura. Se trata de practicar, no de hacer terapia. Os animo a que probéis. 😀 Aquí no hay reglas ni obligaciones. Los participantes pueden manifestar su interés y disponibilidad para prácticas. Mi papel es solo de facilitador del grupo, sin moderar ni supervisar.</p>
+    <p>El objetivo del grupo es facilitar la práctica entre los que somos de LAHP. Ya sabéis que Luis Fernando insiste en practicar con lo que tengas: "más vale hecho que perfecto". También hay que tener en cuenta las diferencias horarias. En mi experiencia, con nuestros hermanos hispanos suelo quedar fines de semana, que es mañana para ellos y tarde para los europeos. Entre semana, como yo practico por las tardes, quedo con gente de por aquí. Cada uno se lo combina como mejor le va.</p>
+    <p class="firma">Atte. José Morales de España</p>
+  </div>
 
   <div class="controles">
     <label>Buscar por nombre o país
@@ -317,6 +338,8 @@ const MIEMBROS = [
   ["Albert", "Barcelona"],
   ["Isa", "Barcelona"],
   ["Raquel", "Barcelona"],
+  ["Jordi", "Barcelona"],
+  ["Maxi", "Barcelona"],
   ["Roland", "Madrid"],
   ["Dori", "Madrid"],
   ["Asun", "Asturias"],
